@@ -1,1 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>人物相関図</title>
+  <style>
+    /* 全体レイアウト */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://hontani-hajime.github.io/relationship/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .container {
+      position: relative;
+      margin: 20px auto; /* 両端に少し余白を作成 */
+      max-width: 90%; /* 相関図が画面いっぱいにならないようにする */
+      text-align: center;
+    }
+    .relationship-chart {
+      width: 100%;
+      border-radius: 10px; /* 少し丸みを付ける */
+    }
+    .person {
+      position: absolute;
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 50%;
+    }
+    .person img {
+      width: 100%;
+      border-radius: 50%;
+    }
 
+    /* モーダルのスタイル */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    .modal-content img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #f00;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 相関図の背景画像 -->
+    <img src="https://hontani-hajime.github.io/relationship/relationship.HEIF" alt="人物相関図" class="relationship-chart">
+
+    <!-- 人物リンク -->
+    <div class="person" style="top: 30%; left: 20%; width: 80px; height: 80px;" onclick="openModal('person1')">
+      <img src="person1.jpg" alt="人物1">
+    </div>
+    <div class="person" style="top: 50%; left: 40%; width: 80px; height: 80px;" onclick="openModal('person2')">
+      <img src="person2.jpg" alt="人物2">
+    </div>
+  </div>
+
+  <!-- モーダル -->
+  <div id="person1" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('person1')">×</button>
+      <img src="person1.jpg" alt="人物1">
+      <h2>人物1の名前</h2>
+      <p>人物1の詳細説明がここに入ります。</p>
+    </div>
+  </div>
+
+  <div id="person2" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal('person2')">×</button>
+      <img src="person2.jpg" alt="人物2">
+      <h2>人物2の名前</h2>
+      <p>人物2の詳細説明がここに入ります。</p>
+    </div>
+  </div>
+
+  <script>
+    // モーダルを開く
+    function openModal(id) {
+      document.getElementById(id).style.display = "flex";
+    }
+
+    // モーダルを閉じる
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+  </script>
+</body>
+</html>
