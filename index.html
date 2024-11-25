@@ -30,7 +30,7 @@
       font-size: 2em;
       color: pink;
       text-align: center;
-      margin-bottom: 50px; /* 上部との間隔を広げる */
+      margin-bottom: 50px;
       animation: glitter 2s infinite;
       letter-spacing: 2px;
     }
@@ -51,24 +51,68 @@
     .relationship-chart {
       width: 100%;
       border-radius: 10px;
+      transition: opacity 0.3s ease;
     }
 
     /* 四角形 (人物枠) */
     .person-box {
       position: absolute;
-      border: 2px solid red; /* 縁を赤に変更 */
-      color: red; /* 文字色を赤に変更 */
+      border: none; /* 縁を透明に */
+      color: transparent; /* 文字色を透明に */
       font-size: 1em;
       text-align: center;
-      line-height: 5; /* 高さが長くなった分調整 */
+      line-height: 5;
       font-family: "Times New Roman", serif;
       padding: 0 10px;
-      background: rgba(0, 0, 0, 0); /* 背景は透過 */
+      background: rgba(0, 0, 0, 0); /* 背景を透過 */
       transform: translate(-50%, -50%);
-      width: 120px; /* 横幅 */
-      height: 200px; /* Y軸の長さを5倍に設定 */
+      width: 120px;
+      height: 200px;
+      cursor: pointer;
+    }
+
+    /* 画像表示エリア */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8); /* 背景を薄暗く */
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border: 5px solid white;
+      border-radius: 10px;
+    }
+
+    .darken {
+      opacity: 0.3; /* 背景を薄暗くする */
     }
   </style>
+  <script>
+    // 画像の表示・非表示の制御
+    function showImage(imageUrl) {
+      const overlay = document.getElementById('overlay');
+      const chart = document.querySelector('.relationship-chart');
+      overlay.style.display = 'flex';
+      overlay.querySelector('img').src = imageUrl;
+      chart.classList.add('darken');
+    }
+
+    function hideImage() {
+      const overlay = document.getElementById('overlay');
+      const chart = document.querySelector('.relationship-chart');
+      overlay.style.display = 'none';
+      chart.classList.remove('darken');
+    }
+  </script>
 </head>
 <body>
   <!-- タイトル -->
@@ -82,7 +126,7 @@
     <img src="https://hontani-hajime.github.io/relationship/relationship.HEIF" alt="人物相関図" class="relationship-chart">
 
     <!-- 19個の四角形 -->
-    <div class="person-box" style="top: 13%; left: 12%;">おだみちこ</div>
+    <div class="person-box" style="top: 13%; left: 12%;" onclick="showImage('https://hontani-hajime.github.io/relationship/IMG_1297.jpeg')">おだみちこ</div>
     <div class="person-box" style="top: 18%; left: 41%;">ほんたにはじめ</div>
     <div class="person-box" style="top: 64%; left: 45%;">たてのようすけ</div>
     <div class="person-box" style="top: 57%; left: 85%;">うえだこういちろう</div>
@@ -101,6 +145,11 @@
     <div class="person-box" style="top: 64%; left: 29%;">みくりやゆうと</div>
     <div class="person-box" style="top: 17%; left: 63%;">まつもとせいじ</div>
     <div class="person-box" style="top: 16%; left: 83%;">きしだはるか</div>
+  </div>
+
+  <!-- 画像表示エリア -->
+  <div id="overlay" class="overlay" onclick="hideImage()">
+    <img src="" alt="表示画像">
   </div>
 </body>
 </html>
